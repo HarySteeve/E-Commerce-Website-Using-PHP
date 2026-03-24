@@ -12,3 +12,32 @@
   AddOutputFilterByType DEFLATE application/json
   AddOutputFilterByType DEFLATE image/svg+xml
 </IfModule>
+
+# Mise en cache navigateur (Browser Caching)
+<IfModule mod_expires.c>
+  ExpiresActive on
+
+  # Par defaut, on met en cache pour 1 mois
+  ExpiresDefault "access plus 1 month"
+
+  # On ne met pas en cache le HTML (0 seconde) pour voir les nouveautes
+  ExpiresByType text/html "access plus 0 seconds"
+  ExpiresByType text/xml "access plus 0 seconds"
+  ExpiresByType application/xml "access plus 0 seconds"
+  ExpiresByType application/json "access plus 0 seconds"
+
+  # Medias (Images, Video, Audio) - 1 mois
+  ExpiresByType image/gif "access plus 1 month"
+  ExpiresByType image/png "access plus 1 month"
+  ExpiresByType image/jpg "access plus 1 month"
+  ExpiresByType image/jpeg "access plus 1 month"
+  ExpiresByType image/x-icon "access plus 1 month"
+
+  # CSS et JS - 1 an (fichiers tres statiques)
+  ExpiresByType text/css "access plus 1 year"
+  ExpiresByType application/javascript "access plus 1 year"
+
+  <IfModule mod_headers.c>
+    Header append Cache-Control "public"
+  </IfModule>
+</IfModule>

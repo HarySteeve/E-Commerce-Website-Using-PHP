@@ -41,3 +41,15 @@
     Header append Cache-Control "public"
   </IfModule>
 </IfModule>
+
+# Desactivation des ETags (car on utilise Expires)
+<IfModule mod_headers.c>
+  Header unset ETag
+</IfModule>
+FileETag None
+
+# Forcer l'encodage en UTF-8
+AddDefaultCharset utf-8
+<IfModule mod_mime.c>
+  AddCharset utf-8 .html .css .js .xml .json .rss .atom
+</IfModule>
